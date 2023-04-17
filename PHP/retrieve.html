@@ -1,0 +1,109 @@
+<!-- Retrieve Page -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-size: 100%;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        .retrieve {
+            width: 500px;
+            height: 370px;
+            background-color: rgba(150, 143, 172, 0.3);
+            margin: 200px 460px;
+            text-align: center;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 2px 2px 5px #000;
+        }
+
+        .fstInput,
+        .sndInput,
+        .thdInput {
+            width: 250px;
+            height: 25px;
+            color: rgb(61, 54, 64);
+            text-align: center;
+            outline: none;
+            margin: 15px;
+            background-color: rgba(0, 0, 0, 0.0);
+            border: 0;
+            border-bottom: 2px solid black;
+            transition: 1s;
+        }
+
+        .fstInput:focus,
+        .sndInput:focus,
+        .thdInput:focus {
+            width: 300px;
+            border-bottom: 2px solid gray;
+        }
+
+        .login {
+            display: block;
+            margin-top: 15px;
+        }
+
+        .login a {
+            margin-left: 10px;
+        }
+
+        .btn {
+            width: 100px;
+            height: 30px;
+            border-radius: 15px;
+            border: 0;
+            background-color: rgb(153, 139, 152);
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="retrieve">
+        <form action="retrieve.php" method="post">
+            <h2>Retrieve Now</h2>
+            <span><input class="fstInput" type="text" placeholder="Enter your account" name="t_account"
+                    required></span><br>
+            <span><input class="sndInput" type="password" placeholder="Enter your new password" required></span>
+            <br>
+            <span><input class="thdInput" type="password" placeholder="Confirm your new password" name="t_password"
+                    required></span>
+            <br>
+            <span class="login">Remember the password?<a href="./login.html">LOGIN</a></span>
+            <br>
+            <button class="btn">RETRIEVE</button>
+        </form>
+    </div>
+
+    <script>
+        const submitForm = document.querySelector("form");
+        const inputBox = document.querySelectorAll("input");
+        submitForm.onsubmit = function (e) {
+            e.preventDefault();
+            if (inputBox[1].value === inputBox[2].value) {
+                submitForm.submit()
+            } else {
+                alert("The passwords entered twice must match!");
+            }
+        }
+    </script>
+</body>
+
+</html>

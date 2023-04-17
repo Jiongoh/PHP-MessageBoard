@@ -1,0 +1,221 @@
+<!-- Homepage -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            background-size: 100%;
+            position: relative;
+            height: 100%;
+        }
+
+        .message {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            width: 500px;
+            height: 400px;
+            background-color: rgba(150, 143, 172, 0.3);
+            text-align: center;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 2px 2px 5px #000;
+        }
+
+        .borad {
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            width: 600px;
+            height: auto;
+            background-color: rgba(150, 143, 172, 0.3);
+            text-align: center;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 2px 2px 5px #000;
+        }
+
+        .fstInput,
+        .sndInput,
+        .thdInput {
+            width: 250px;
+            height: 25px;
+            color: rgb(61, 54, 64);
+            text-align: center;
+            outline: none;
+            margin: 25px;
+            background-color: rgba(0, 0, 0, 0.0);
+            border: 0;
+            border-bottom: 2px solid black;
+            transition: 1s;
+        }
+
+        .fstInput:focus,
+        .sndInput:focus,
+        .thdInput:focus {
+            width: 300px;
+            border-bottom: 2px solid gray;
+        }
+
+        .btn {
+            width: 200px;
+            height: 40px;
+            border-radius: 15px;
+            border: 0;
+            background-color: rgb(153, 139, 152);
+            margin-top: 20px;
+        }
+
+        .separator {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: rgb(153, 139, 152);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* table style */
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin: 30px auto;
+        }
+
+        td,
+        th {
+            padding: 0;
+        }
+
+        .pure-table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            empty-cells: show;
+            border: 1px solid #cbcbcb;
+        }
+
+        .pure-table caption {
+            color: #000;
+            font: italic 85%/1 arial, sans-serif;
+            padding: 1em 0;
+            text-align: center;
+        }
+
+        .pure-table td,
+        .pure-table th {
+            border-left: 1px solid #cbcbcb;
+            border-width: 0 0 0 1px;
+            font-size: inherit;
+            margin: 0;
+            overflow: visible;
+            padding: .5em 1em;
+        }
+
+        .pure-table thead {
+            background-color: #e0e0e0;
+            color: #000;
+            text-align: left;
+            vertical-align: bottom;
+        }
+
+        .pure-table tbody tr:nth-child(even) {
+            background-color: transparent;
+        }
+
+        .pure-table tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        .logout {
+            width: 70px;
+            height: 30px;
+            border-radius: 5px;
+            border: 0;
+            background-color: rgb(153, 139, 152);
+            margin-top: 5px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="logout" id="logoutBtn">LOGOUT</button>
+    <div class="message">
+        <form action="sendmsg.php" method="post">
+            <h2>Message Board</h2>
+            <span><input class="fstInput" type="text" placeholder="Enter your name" name="t_name" required></span>
+            <br>
+            <span><input class="sndInput" type="email" placeholder="Enter your email" name="t_email"></span>
+            <br>
+            <span><input class="thdInput" type="text" placeholder="Enter your message" name="t_message" required></span>
+            <br>
+            <button class="btn">SUBMIT</button>
+        </form>
+    </div>
+    <div class="separator"></div>
+    <div class="borad">
+        <table class="pure-table" id="msgTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>EMAIL</th>
+                    <th>CONTENT</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- Write the data of the database here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Create XMLHttpRequest Object
+        const xhr = new XMLHttpRequest();
+
+        // Functions executed when the current request state changes
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // Place the data returned by the PHP script into the table
+                document.querySelector("#msgTable tbody").innerHTML = this.responseText;
+            }
+        };
+
+        // Send a request to the PHP script
+        xhr.open("GET", "readmsg.php", true);
+        xhr.send();
+
+        // Logout Event
+        const btn = document.getElementById("logoutBtn");
+        btn.addEventListener("click", () => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'logout.php', true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const respone = xhr.responseText;
+                    window.location.href = 'login.html';
+                }
+            };
+            xhr.send();
+        })
+    </script>
+</body>
+
+</html>
