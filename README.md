@@ -1,9 +1,6 @@
 # PHP-MessageBoard
 基于PHP和Javascript的留言板小项目/Message board mini project based on PHP and Javascript
 
-# 在线链接
-http://123.249.18.208/homework/login.html
-
 ## 用户注册
 用form表达记录用户的输出，post方法提交到register.php。register.php脚本则负责连接到数据库，首先检测账号是否已经存在，如果账号重名则将数据无法写入数据库，并跳转回register.html，如果账号没有重名，则将数据插入数据表中，显示“成功注册”，并跳转至login.html
 
